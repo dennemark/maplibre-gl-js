@@ -33,6 +33,7 @@ export class Transform {
     pixelsToGLUnits: [number, number];
     cameraToCenterDistance: number;
     mercatorMatrix: mat4;
+    projectionMatrix: mat4;
     modelViewProjectionMatrix: mat4;
     invModelViewProjectionMatrix: mat4;
     alignedModelViewProjectionMatrix: mat4;
@@ -917,6 +918,7 @@ export class Transform {
         // Apply center of perspective offset
         m[8] = -offset.x * 2 / this.width;
         m[9] = offset.y * 2 / this.height;
+        this.projectionMatrix = mat4.clone(m);
 
         mat4.scale(m, m, [1, -1, 1]);
         mat4.translate(m, m, [0, 0, -this.cameraToCenterDistance]);
